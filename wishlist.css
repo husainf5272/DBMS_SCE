@@ -1,0 +1,51 @@
+.cart-prod {
+  position: relative;
+}
+
+.wish {
+  margin-left: 100px;
+  width: 890px;
+  height: 160px;
+  margin-bottom: 5px;
+  position: relative;
+  background-color: #dddddd;
+  box-sizing: border-box;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.title {
+  position: absolute;
+  display: inline;
+  font-size: large;
+  margin-left: 10px;
+}
+
+.fabric {
+  position: absolute;
+  display: inline;
+  font-size: large;
+  margin-left: 10px;
+  margin-top: 40px;
+}
+
+.price {
+  position: absolute;
+  display: inline;
+  font-size: large;
+  margin-left: 10px;
+  margin-top: 130px;
+}
+
+.button {
+  position: relative;
+  display: inline;
+  float: right;
+  background-color: grey;
+  color: white;
+}
+
+img {
+  border: 10px solid #dddddd;
+}

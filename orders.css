@@ -1,0 +1,89 @@
+.cart-prod {
+  position: absolute;
+}
+
+.wish {
+  margin-left: 100px;
+  width: 890px;
+  height: 160px;
+  margin-bottom: 5px;
+  position: relative;
+  background-color: #dddddd;
+  box-sizing: border-box;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.title {
+  position: absolute;
+  display: inline;
+  font-size: large;
+  margin-left: 10px;
+}
+
+.fabric {
+  position: absolute;
+  display: inline;
+  font-size: large;
+  margin-left: 10px;
+  margin-top: 40px;
+}
+
+.quantity {
+  position: absolute;
+  display: inline;
+  margin-left: 10px;
+  margin-top: 90px;
+}
+
+.price {
+  position: absolute;
+  display: inline;
+  font-size: large;
+  margin-left: 10px;
+  margin-top: 130px;
+}
+
+.delivered {
+  position: relative;
+  display: inline;
+  float: right;
+  color: green;
+  margin-right: 50px;
+  margin-top: 70px;
+}
+
+.cancelled {
+  position: relative;
+  display: inline;
+  float: right;
+  color: red;
+  margin-right: 50px;
+  margin-top: 70px;
+}
+
+.status {
+  position: relative;
+  display: inline;
+  float: right;
+  color: orange;
+  margin-right: 50px;
+  margin-top: 50px;
+}
+
+.formcancel {
+  position: absolute;
+  display: inline;
+  float: right;
+  margin-top: 90px;
+  margin-left: 630px;
+}
+
+.cancel {
+  background-color: indianred;
+}
+
+img {
+  border: 10px solid #dddddd;
+}
