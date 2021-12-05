@@ -4,7 +4,7 @@
     
         // specify your own database credentials
         private $host = "localhost";
-        private $db_name = "dbms_online_shopping";
+        private $db_name = "online_shopping";
         private $username = "root";
         private $password = "";
         public $conn;

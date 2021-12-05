@@ -4,6 +4,34 @@ require 'database.php';
 $db = new Database;
 $conn = $db->getConnection();
 
+    if(isset($_POST['cart']))
+    {
+        $sql = 'select id from cart where user_id=' . $_COOKIE['uid'] . ' and product_id=' . $_POST["cart"] . ' and status="removed"';
+        if($conn->query($sql)) {
+            $sql = 'update cart set status="added", updated_at=now() where user_id=' . $_COOKIE['uid'] . ' and product_id=' . $_POST["cart"];
+            $conn->exec($sql);
+        } else {
+            $sol1=$conn->prepare('INSERT into cart (user_id,product_id, quantity, status, created_at) values (:user_id,:product_id,1, "added",now())');
+            $sol1->bindParam(":user_id",$_COOKIE['uid']);
+            $sol1->bindParam(":product_id",$_POST["cart"]);
+            $sol1->execute();
+        }
+        header("Location: dbms_sce/cart.php");
+    }
+    if(isset($_POST['wishlist']))
+    {
+        $sql = 'select id from wishlist where user_id=' . $_COOKIE['uid'] . ' and product_id=' . $_POST["cart"] . ' and status="removed"';
+        if($conn->query($sql)) {
+            $sql = 'update wishlist set status="added", updated_at=now() where user_id=' . $_COOKIE['uid'] . ' and product_id=' . $_POST["cart"];
+            $conn->exec($sql);
+        } else {
+            $sol1=$conn->prepare('INSERT into wishlist (user_id,product_id, status, created_at) values (:user_id,:product_id, "added",now())');
+            $sol1->bindParam(":user_id",$_COOKIE['uid']);
+            $sol1->bindParam(":product_id",$_POST["wishlist"]);
+            $sol1->execute();
+        }
+        header("Location: dbms_sce/wishlist.php");
+    }
 
 ?>
 <!DOCTYPE html>
@@ -132,10 +160,10 @@ $conn = $db->getConnection();
                          </br>
                          </br>
                          <form method="post">
-                      <button class="btn-success" type="submit" name="cart" value="cart1"/ >Add to cart</button>
+                      <button class="btn-success" type="submit" name="cart" value="'.$row['id'].'">Add to cart</button>
                       </br>
                       </br>
-                      <button class="btn-success" type="submit" name="wishlist" value="wishlist1">Add to wishlist</button>
+                      <button class="btn-success" type="submit" name="wishlist" value="'.$row['id'].'">Add to wishlist</button>
                       </form>
                          </div>
                          </div>
@@ -157,22 +185,7 @@ $conn = $db->getConnection();
                          ');
                      }
                 }
-                if(isset($_POST['cart']))
-                {
-           $sol1=$conn->prepare("INSERT into cart (user_id,product_id, quantity, created_at) values (:user_id,:product_id,1,now())");
-           $sol1->bindParam(":user_id",$_COOKIE['uid']);
-           $sol1->bindParam(":product_id",$x);
-           $sol1->execute();
-           
-           }
-           if(isset($_POST['wishlist']))
-                {
-           $sol1=$conn->prepare("INSERT into wishlist (user_id,product_id, created_at) values (:user_id,:product_id,now())");
-           $sol1->bindParam(":user_id",$_COOKIE['uid']);
-           $sol1->bindParam(":product_id",$x);
-           $sol1->execute();
-          
-           }
+                
                 ?>
     </section>
 </body>

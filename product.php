@@ -3,6 +3,36 @@
 require 'database.php';
 $db = new Database;
 $conn = $db->getConnection();
+
+    if(isset($_POST['cart']))
+    {
+        $sql = 'select id from cart where user_id=' . $_COOKIE['uid'] . ' and product_id=' . $_POST["cart"] . ' and status="removed"';
+        if($conn->query($sql)) {
+            $sql = 'update cart set status="added", updated_at=now() where user_id=' . $_COOKIE['uid'] . ' and product_id=' . $_POST["cart"];
+            $conn->exec($sql);
+        } else {
+            $sol1=$conn->prepare('INSERT into cart (user_id,product_id, quantity, status, created_at) values (:user_id,:product_id,1, "added",now())');
+            $sol1->bindParam(":user_id",$_COOKIE['uid']);
+            $sol1->bindParam(":product_id",$_POST["cart"]);
+            $sol1->execute();
+        }
+        header("Location: dbms_sce/cart.php");
+    }
+    if(isset($_POST['wishlist']))
+    {
+        $sql = 'select id from wishlist where user_id=' . $_COOKIE['uid'] . ' and product_id=' . $_POST["cart"] . ' and status="removed"';
+        if($conn->query($sql)) {
+            $sql = 'update wishlist set status="added", updated_at=now() where user_id=' . $_COOKIE['uid'] . ' and product_id=' . $_POST["cart"];
+            $conn->exec($sql);
+        } else {
+            $sol1=$conn->prepare('INSERT into wishlist (user_id,product_id, status, created_at) values (:user_id,:product_id, "added",now())');
+            $sol1->bindParam(":user_id",$_COOKIE['uid']);
+            $sol1->bindParam(":product_id",$_POST["wishlist"]);
+            $sol1->execute();
+        }
+        header("Location: dbms_sce/wishlist.php");
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,13 +116,13 @@ $conn = $db->getConnection();
   <div class="collapse navbar-collapse row" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Products</a>
+        <a class="nav-link" href="product.php">Products</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Wishlist</a>
+        <a class="nav-link" href="wishlist.php">Wishlist</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">cart</a>
+        <a class="nav-link" href="cart.php">cart</a>
       </li>
       <li class="nav-item offset-sm-9 col-sm-2" id="logout">
         <a class="nav-link" href="./login.php">Logout</a>
@@ -101,11 +131,6 @@ $conn = $db->getConnection();
     </ul>
     </div>
    </nav>
-    <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item active" aria-current="page">Products</li>
-    </ol>
-    </nav>
         <h1 id="Product_title">Products</h1>
     </header>
     <section>
@@ -137,31 +162,16 @@ $conn = $db->getConnection();
              </br>
              </br>
                      <form method="post">
-                      <button class="btn-success" type="submit" name="cart" value="cart1" >Add to cart</button>
+                      <button class="btn-success" type="submit" name="cart" value="'.$x.'" >Add to cart</button>
                       </br>
                       </br>
-                      <button class="btn-success" type="submit" name="wishlist" value="wishlist1">Add to wishlist</button>
+                      <button class="btn-success" type="submit" name="wishlist" value="'.$x.'">Add to wishlist</button>
                       </form>
                   </span>
              </div>');
 
          }
-         if(isset($_POST['cart']))
-              {
-         $sol1=$conn->prepare("INSERT into cart (user_id,product_id, quantity, created_at) values (:user_id,:product_id,1,now())");
-         $sol1->bindParam(":user_id",$_COOKIE['uid']);
-         $sol1->bindParam(":product_id",$x);
-         $sol1->execute();
          
-         }
-         if(isset($_POST['wishlist']))
-              {
-         $sol1=$conn->prepare("INSERT into wishlist (user_id,product_id, created_at) values (:user_id,:product_id,now())");
-         $sol1->bindParam(":user_id",$_COOKIE['uid']);
-         $sol1->bindParam(":product_id",$x);
-         $sol1->execute();
-        
-         }
 
 ?>
     </section>
