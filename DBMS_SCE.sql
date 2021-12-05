@@ -16,6 +16,21 @@ CREATE TABLE `User` (
 	PRIMARY KEY (`id`)
 );
 
+CREATE TABLE `Admin` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`user_name` varchar(20) ,
+	`first_name` varchar(20) ,
+	`middle_name` varchar(20) ,
+	`last_name` varchar(20) ,
+	`mobile` varchar(15) ,
+	`email` varchar(40) ,
+	`password` varchar(64) ,
+	`registered_at` DATETIME ,
+	`last_login` DATETIME ,
+	`password_changed_at` DATETIME ,
+	PRIMARY KEY (`id`)
+);
+
 CREATE TABLE `Products` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`title` varchar(30) ,
@@ -162,5 +177,4 @@ INSERT INTO cart VALUES (1, 1, 3, 1, "added", now(), null);
 INSERT INTO orders VALUES (1, 1, 1, 2, (select price from products where id=1)*2, (select price from products where id=1)*2*0.1, (select price from products where id=1)*2*1.1, "delivered", now(), null, null);
 
 INSERT INTO transactions VALUES (1, 1, 1, "online", "Credit Card", "paid", now());
-
 
