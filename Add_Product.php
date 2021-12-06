@@ -91,10 +91,7 @@
             <a class="nav-link" href="#">Products</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Wishlist</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">cart</a>
+            <a class="nav-link" href="./Admin_Orders.php">Orders</a>
           </li>
           <li class="nav-item offset-sm-9 col-sm-2" id="logout">
             <a class="nav-link" href="./login.php">Logout</a>
@@ -102,12 +99,7 @@
         </ul>
     </div>
     </nav>
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">Products</li>
-        </ol>
-    </nav>
-          <h1 id="Product_title">Insert Product</h1>
+      <h1 id="Product_title">Insert Product</h1>
     </header>
     <div class="container mt-3">
       <style>
@@ -203,4 +195,3 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </body>
 </html>
-
