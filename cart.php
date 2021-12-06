@@ -4,17 +4,21 @@
     $db = new Database;
     $conn = $db->getConnection();
 
+    $uid = $_COOKIE["uid"];
+
     if(isset($_POST["plus"])) {
-        $sql = 'update cart set quantity=(select quantity from cart where user_id=1 and product_id=' . $_POST["plus"] . ') +1 where user_id=1 and product_id=' . $_POST["plus"];
+        $sql = 'update cart set quantity=(select quantity from cart where user_id=' . $uid . ' and product_id=' . $_POST["plus"] . ') +1 where user_id=' . $uid . ' and product_id=' . $_POST["plus"];
         $conn->exec($sql);
     } else if(isset($_POST["minus"])) {
-        $sql = 'update cart set quantity=(select quantity from cart where user_id=1 and product_id=' . $_POST["minus"] . ') -1 where user_id=1 and product_id=' . $_POST["minus"] . ' and quantity > 1';
+        $sql = 'update cart set quantity=(select quantity from cart where user_id=' . $uid . ' and product_id=' . $_POST["minus"] . ') -1 where user_id=' . $uid . ' and product_id=' . $_POST["minus"] . ' and quantity > 1';
         $conn->exec($sql);
     } else if(isset($_POST["remove"])) {
-        $sql = 'update cart set status="removed" where user_id=1 and product_id=' . $_POST["remove"];
+        $sql = 'update cart set status="removed" where user_id=' . $uid . ' and product_id=' . $_POST["remove"];
         $conn->exec($sql);
     } else if(isset($_POST["order"])) {
-        echo '<script>alert("Order Placed Successfully!")</script>';
+        $sql = "call place_order($uid);";
+        $conn->exec($sql);
+        header("Location: orders.php");
     }
 
     $sql = 'select cart.id, products.id as pid, products.image, title, material, cart.quantity, price from cart, products, fabrics where cart.product_id=products.id and cart.user_id=1 and products.fabric_id=fabrics.id and status!="removed" order by cart.created_at desc;';
@@ -47,6 +51,9 @@
       <li class="nav-item">
         <a class="nav-link" href="cart.php">Cart</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="orders.php">Orders</a>
+      </li>
       <li class="nav-item offset-sm-9 col-sm-2" id="logout">
         <a class="nav-link" href="./login.php">Logout</a>
       </li>
@@ -58,7 +65,7 @@
     </header>
         <?php 
             if($data == []) {
-                echo "No items in Cart.";
+                echo "<p style='margin-left: 100px'>No items in Cart.</p>";
             } else {
                 echo '<div class="cart-prod">';
                 foreach($data as $d) {
@@ -70,7 +77,7 @@
                     echo '
                         
                             <div class="wish">
-                                <img style="width: 98px; height:138px;" src="' . $img . '" />
+                                <img style="width: 120px; height:160px;" src="' . $img . '" />
                                 <p class="title"><b>' . $title . '</b></p>
                                 <p class="fabric">Fabric by ' . $material . '</p>
                                 <p class="quantity">Quantity: </p>
@@ -123,7 +130,9 @@
                         <tr>
                             <td colspan="5"><form method="post"><button name="order" value="" type="submit" style="width:100%">Place Order</button></form></td>
                         </tr>
-                    </table></div>';
+                    </table>
+
+                </div>';
             }
         ?>
 

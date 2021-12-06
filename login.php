@@ -22,7 +22,7 @@
       <div class="card-body">
       <tr>
         <td>Email:</td>
-        <td><input type="text" name="user" placeholder="   Enter name" required></td>
+        <td><input type="text" name="user" placeholder="   Enter email" required></td>
       </tr>
       <tr>
         <td>Password:</td>

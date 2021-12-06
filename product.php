@@ -6,22 +6,24 @@ $conn = $db->getConnection();
 
     if(isset($_POST['cart']))
     {
-        $sql = 'select id from cart where user_id=' . $_COOKIE['uid'] . ' and product_id=' . $_POST["cart"] . ' and status="removed"';
-        if($conn->query($sql)) {
+        $sql = 'select id from cart where user_id=' . $_COOKIE['uid'] . ' and product_id=' . $_POST["cart"];
+        if($conn->query($sql)->fetch()) {
             $sql = 'update cart set status="added", updated_at=now() where user_id=' . $_COOKIE['uid'] . ' and product_id=' . $_POST["cart"];
+            echo $sql;
             $conn->exec($sql);
         } else {
             $sol1=$conn->prepare('INSERT into cart (user_id,product_id, quantity, status, created_at) values (:user_id,:product_id,1, "added",now())');
+            echo $sql;
             $sol1->bindParam(":user_id",$_COOKIE['uid']);
             $sol1->bindParam(":product_id",$_POST["cart"]);
             $sol1->execute();
         }
-        header("Location: dbms_sce/cart.php");
+        header("Location: cart.php");
     }
     if(isset($_POST['wishlist']))
     {
         $sql = 'select id from wishlist where user_id=' . $_COOKIE['uid'] . ' and product_id=' . $_POST["cart"] . ' and status="removed"';
-        if($conn->query($sql)) {
+        if($conn->query($sql)->fetch()) {
             $sql = 'update wishlist set status="added", updated_at=now() where user_id=' . $_COOKIE['uid'] . ' and product_id=' . $_POST["cart"];
             $conn->exec($sql);
         } else {
@@ -122,7 +124,10 @@ $conn = $db->getConnection();
         <a class="nav-link" href="wishlist.php">Wishlist</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="cart.php">cart</a>
+        <a class="nav-link" href="cart.php">Cart</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="orders.php">Orders</a>
       </li>
       <li class="nav-item offset-sm-9 col-sm-2" id="logout">
         <a class="nav-link" href="./login.php">Logout</a>

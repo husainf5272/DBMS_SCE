@@ -4,13 +4,15 @@
     $db = new Database;
     $conn = $db->getConnection();
 
+    $uid = $_COOKIE["uid"];
+
     if(isset($_POST["remove"])) {
-        $sql = 'update wishlist set status="removed", updated_at=now() where user_id=1 and product_id=' . $_POST["remove"];
+        $sql = 'update wishlist set status="removed", updated_at=now() where user_id=' . $uid . ' and product_id=' . $_POST["remove"];
         $conn->exec($sql);
     } else if(isset($_POST["addcart"])) {
-        $sql = 'delete from wishlist where user_id=1 and product_id=' . $_POST["addcart"];
+        $sql = 'delete from wishlist where user_id=' . $uid . ' and product_id=' . $_POST["addcart"];
         $conn->exec($sql);
-        $sql = 'insert into cart (user_id, product_id, quantity, status, created_at) values (1,' . $_POST["addcart"] . ',1,"added",now());';
+        $sql = 'insert into cart (user_id, product_id, quantity, status, created_at) values (' . $uid . ',' . $_POST["addcart"] . ',1,"added",now());';
         $conn->exec($sql);
         header('Location: /dbms_sce/cart.php');
     }
@@ -46,6 +48,9 @@
       <li class="nav-item">
         <a class="nav-link" href="cart.php">Cart</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="orders.php">Orders</a>
+      </li>
       <li class="nav-item offset-sm-9 col-sm-2" id="logout">
         <a class="nav-link" href="./login.php">Logout</a>
       </li>
@@ -66,7 +71,7 @@
                     $price = $d["price"];
                     echo '
                             <div class="wish">
-                                <img style="width: 98px; height:138px;" src="' . $img . '" />
+                                <img style="width: 120px; height:160px;" src="' . $img . '" />
                                 <p class="title"><b>' . $title . '</b></p>
                                 <p class="fabric">Fabric by ' . $material . '</p>
                                 <p class="price"><b>₹ ' . $price . '</b></p>
