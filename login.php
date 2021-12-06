@@ -30,18 +30,22 @@
       </tr>
       
       <tr>
-         <td><input type="submit" name="submit" value="Login" class="link-success"></td>
+         <td>
+         <button class="btn-success" type="submit" name="submit" value="Login" >login</button></td>
          <td><p>Not yet a Member? <a href="register.php">Register</a></p></td>
       </tr>
 </div>
+</table>
+</form>
 <div class="card=footer">
+  <form method="post">
   <tr>
-     <td><p> Forgot Password ?</p></td>
+     <td ><button action="./admin_login.php" type="submit" name="ad" class="btn-danger">Admin login</button></td>
   </tr>
+</form>
 </div>
 
-    </table>
-</form>
+    
    </div>
   
   </center>
@@ -79,6 +83,10 @@ if(isset($_POST['submit']))
       exit();
        
     }
+}
+if(isset($_POST['ad']))
+{
+  header("Location: ./admin_login.php");
 }
 
 

@@ -49,7 +49,8 @@
           </td>
         </tr>
         <tr>
-           <td><input type="submit" id="submit" name="submit" value="submit"></td>
+           <td>
+           <button type="submit" name="submit" class="btn-success" id="submit">Admin login</button><</td>
            <td><p>Already a user? <a href="login.php">Login Here</a></p></td>
         </tr>
 

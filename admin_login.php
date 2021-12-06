@@ -21,8 +21,8 @@
     <table>
       <div class="card-body">
       <tr>
-        <td>Email:</td>
-        <td><input type="text" name="user" placeholder="   Enter name" required></td>
+        <td>Username:</td>
+        <td><input type="text" name="user" placeholder="   Enter username" required></td>
       </tr>
       <tr>
         <td>Password:</td>
@@ -30,14 +30,12 @@
       </tr>
       
       <tr>
-         <td><input type="submit" name="submit" value="Login" class="link-success"></td>
-         <td><p>Not yet a Member? <a href="register.php">Register</a></p></td>
+         <td>
+         <button type="submit" name="submit" class="btn-success" value="Login">Admin login</button></td>
+         <td><p>Not yet a Member? <a href="./Admin_Registration.php">Register</a></p></td>
       </tr>
 </div>
 <div class="card=footer">
-  <tr>
-     <td><p> Forgot Password ?</p></td>
-  </tr>
 </div>
 
     </table>
@@ -54,7 +52,7 @@ require 'database.php';
 $db = new Database;
 $conn = $db->getConnection();
 
-$sql='SELECT email,password,id from user';
+$sql='SELECT email,password,id from Admin';
 $res=$conn->query($sql);
 $truth=false;
 
@@ -62,10 +60,10 @@ if(isset($_POST['submit']))
 {
     foreach($res as $row)
     {
-      if($row['email']==$_REQUEST['user'] && $row['password']==$_REQUEST['user_pass'])
+      if($row['username']==$_REQUEST['user'] && $row['password']==$_REQUEST['user_pass'])
       {
            $truth=true;
-           $uid=$row['id'];
+           $auid=$row['id'];
       }
     }
     if($truth==false)
@@ -74,8 +72,8 @@ if(isset($_POST['submit']))
     }
     else{
       echo("done");
-      setcookie("uid",$uid, time()+3600 , '/', '' );
-      header("Location: product.php");
+      setcookie("auid",$uid, time()+3600 , '/', '' );
+      header("Location: ./Product_Addition_and_removal.php");
       exit();
        
     }
