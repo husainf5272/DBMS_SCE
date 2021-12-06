@@ -111,10 +111,7 @@
             <a class="nav-link" href="#">Products</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Wishlist</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">cart</a>
+            <a class="nav-link" href="./Admin_Orders.php">Orders</a>
           </li>
           <li class="nav-item offset-sm-9 col-sm-2" id="logout">
             <a class="nav-link" href="./login.php">Logout</a>
@@ -122,12 +119,7 @@
         </ul>
     </div>
     </nav>
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">Products</li>
-        </ol>
-    </nav>
-          <h1 id="Product_title">Product Details</h1>
+      <h1 id="Product_title">Product Details</h1>
     </header>
     
    <table class = "row offset-sm-3 col-sm-6"> 
